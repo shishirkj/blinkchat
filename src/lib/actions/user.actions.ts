@@ -17,7 +17,9 @@ export async function createUser(data:userParamsType){
     }
 // let unique_id = data.clerkId;
 //     await client.hset(unique_id,data);
+console.log("print!!!!!!!!!",data);
 const newUser = await User.create(data)
+console.log("newUser",newUser);
     return NextResponse.json({"success":"true",newUser},{status:200})
     } catch (error) {
         ErrorHandler(error)

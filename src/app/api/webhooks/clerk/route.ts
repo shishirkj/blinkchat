@@ -67,7 +67,9 @@ export async function POST(req: Request) {
       photo: image_url,
     };
   
-    await createUser(user)
+    console.log("user:",user);
+    const res=await createUser(user)
+    console.log(res);
   }
  
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
