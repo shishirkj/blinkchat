@@ -42,14 +42,14 @@ export async function PUT(req:NextRequest,context:contextRoom){
          roomId:roomId
      })
 
-     const existingMessage2 = await Message.findOne({ 
-        senderId:receiverId,
-        receiverId:senderId,
-        roomId:roomId
-     }) 
+    //  const existingMessage2 = await Message.findOne({ 
+    //     senderId:receiverId,
+    //     receiverId:senderId,
+    //     roomId:roomId
+    //  }) 
      
 
-     if (!existingMessage && !existingMessage2) {
+     if (!existingMessage ) {
          await Message.create({
             senderId:senderId,
             receiverId:receiverId,
@@ -74,20 +74,20 @@ export async function PUT(req:NextRequest,context:contextRoom){
      })
     }
 
-    if(existingMessage2)
-    { 
+    // if(existingMessage2)
+    // { 
 
-        await Message.updateOne({
-            senderId:receiverId,
-            receiverId:senderId,
-            roomId:roomId,
-       },
-       { 
-           $push:{ 
-               messageArray:text
-           }
-       })
-    }
+    //     await Message.updateOne({
+    //         senderId:receiverId,
+    //         receiverId:senderId,
+    //         roomId:roomId,
+    //    },
+    //    { 
+    //        $push:{ 
+    //            messageArray:text
+    //        }
+    //    })
+    // }
      
      return NextResponse.json({"success":"true","mssg":"mssg stored suucessfully"},{status:200})
      
