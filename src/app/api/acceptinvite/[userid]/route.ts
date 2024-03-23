@@ -16,7 +16,7 @@ try {
     return NextResponse.json({"success":"false","mssg":"No userParams or emailParams"},{status:500})
     }
     const {searchParams} = new URL(req.url);
-console.log(searchParams);
+
 
 const email = searchParams.get("email");
 
@@ -34,12 +34,11 @@ await connectDB();
         return NextResponse.json({"success":"false","mssg":"Please sign Up first"},{status:500});
     }
 
-console.log("res",res);
+
 
     const {userid} = context.params;
-    console.log("ddasdsa!!!!!!",userid);
+  
     var id=  new ObjectId(userid);
-    console.log("id!!!!!!!!!",id)
     const eId = res._id.toString();
     const friend = { 
         firstName:res.firstName,

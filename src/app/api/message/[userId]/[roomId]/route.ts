@@ -11,7 +11,7 @@ export async function PUT(req:NextRequest,context:contextRoom){
         const body = await req.json();
         const {text} = body;
         const { userId } = auth();
-        console.log(text)
+
         if(!userId)
         { 
             NextResponse.json({"success":"false","mssg":"No Pease Login"},{status:500});
@@ -21,10 +21,10 @@ export async function PUT(req:NextRequest,context:contextRoom){
         const {_id}=await User.findOne({clerkId:userId});
 
         const senderId = _id.toString();
-        console.log("senderId",senderId);
+
 
         
-        console.log("dsadsadsadweqeqw",context.params.roomId,context.params.userId)
+      
         if(!context.params.roomId ||!context.params.userId )
         { 
          NextResponse.json({"success":"false","mssg":"No RoomId or useriD"},{status:500});

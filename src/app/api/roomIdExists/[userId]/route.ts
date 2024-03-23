@@ -7,26 +7,19 @@ import { nanoid } from "nanoid";
 
 //it checks in client-side room/userId.ts that if roomid already exists by checking senderId and receiver Id to THIS API
 //if not create new One
-
-
-
 export async function GET (req:NextRequest,context:onlyRoomType){ 
-    console.log("dsadsadasvdfsgfsgdfgfdgdf")
 await connectDB();
 const {userId} = auth();
-    console.log("receiverId",context.params.userId);
-
+    
    const {_id}= await User.findOne({clerkId:userId});
-
 
    if(!(_id))
 { 
-    return NextResponse.json({"success":"false","mssg":"didnt find senderId"},{status:500})
+    return NextResponse.json({"success":"false","mssg":"didnt find senderId meaning login plz"},{status:500})
 }
 
    const senderId = _id.toString();
 
-    console.log("senderId",senderId);
 
 if(!(context.params.userId ))
 { 
@@ -34,15 +27,20 @@ if(!(context.params.userId ))
 }
 
     const receiverId = context.params.userId
-  const checkIfRoomIdExistsBetweenTwoUsers= await Message.findOne({senderId:receiverId,receiverId:senderId});
+    console.log("senderId:",senderId);
+    console.log("receiveriD",receiverId);
+
+const checkIfRoomIdExistsBetweenTwoUsers= await Message.findOne({senderId:receiverId,receiverId:senderId});
 
   
-  if(!checkIfRoomIdExistsBetweenTwoUsers)
+  if(!checkIfRoomIdExistsBetweenTwoUsers )
   { 
-    const roomId = nanoid();
+      const roomId = nanoid();
+      console.log("roomId12345",roomId)
     return NextResponse.json({"success":"true","mssg":roomId},{status:200})
   }
- const {roomId} = checkIfRoomIdExistsBetweenTwoUsers
+
+ const {roomId} =  checkIfRoomIdExistsBetweenTwoUsers
  return NextResponse.json({"success":"true","mssg":roomId},{status:200})
 
 }

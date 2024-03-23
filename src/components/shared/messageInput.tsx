@@ -21,7 +21,7 @@ const MessageInput = ({roomId,userId}:{roomId:string,userId:string}) => {
     { 
       console.log("no roomId");
     }
-console.log("sadasdsa")
+
     const res=await axios.put(`${API_BASE_URL}/api/message/${userId}/${roomId}`,{text:input})
 console.log("input res",res);
 setInput('')

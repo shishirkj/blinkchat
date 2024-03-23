@@ -11,7 +11,7 @@ export async function POST(req:NextRequest)
   const body = await req.json();
   const {email} = body;
 const {userId} = auth();
-console.log("userId!!!!!!",userId);
+
   await connectDB();
       const res = await User.findOne({clerkId:userId});
      const userid = res._id.toString();

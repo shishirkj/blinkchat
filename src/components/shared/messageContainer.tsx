@@ -10,7 +10,6 @@ const [mssgArray,setMssgArray] = useState<Array<string>>([])
 
     pusherClient.subscribe(roomId);
     pusherClient.bind('incoming-message',(text:string)=>{ 
-    console.log("text!!!!",text);
     setMssgArray((prev) => [...prev, text])
     })
     console.log("mssgArray",mssgArray)
