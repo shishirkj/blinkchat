@@ -16,7 +16,6 @@ const messageSchema = new Schema({
     messageArray: [{type: String, required: true}]
 })
 
-mongoose.models = {};
-const Message = models.Friend||model("Message", messageSchema);
+const Message = models.message||model("message", messageSchema);
 
 export default Message

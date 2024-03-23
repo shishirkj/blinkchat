@@ -38,28 +38,28 @@ import { v4 as uuidv4 } from 'uuid';
  
 
    useEffect(() => {
-    async function fixRaceCondtion(){ 
-      //since two browsers were hitting this api at same time it was causing race condition
-  //to prevent that we are using lock system from redis
+//     async function fixRaceCondtion(){ 
+//       //since two browsers were hitting this api at same time it was causing race condition
+//   //to prevent that we are using lock system from redis
 
-    const lock = new Lock({
-      id:uuidv4(),
-      lease: 2000,
-      redis:client,
-    });
-console.log("dsdadsad",lock)
+//     const lock = new Lock({
+//       id:uuidv4(),
+//       lease: 2000,
+//       redis:client,
+//     });
+// console.log("dsdadsad",lock)
 
-    if(await lock.acquire())
-    {
-       await getRoomId();
-       await lock.release()
-      }
-      else{ 
-          console.log("lock not acquired")
-      }
-  }
+//     if(await lock.acquire())
+//     {
+       getRoomId();
+  //      await lock.release()
+  //     }
+  //     else{ 
+  //         console.log("lock not acquired")
+  //     }
+  // }
 
-  fixRaceCondtion()
+  // fixRaceCondtion()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId]);
     

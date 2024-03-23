@@ -1,4 +1,4 @@
-import { Schema,models,model} from "mongoose";
+import { Schema} from "mongoose";
 import mongoose from "mongoose";
 
 const FriendSchema = new Schema({
@@ -10,8 +10,8 @@ const FriendSchema = new Schema({
     invitedBy:{ type: Schema.Types.ObjectId,ref:"User",required:true}
 });
 
-mongoose.models = {};
 
-const Friend = models.Friend||model("Freind", FriendSchema);
+
+const Friend = mongoose.models.friend||mongoose.model("friend", FriendSchema);
 
 export default Friend
