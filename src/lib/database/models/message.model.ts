@@ -1,6 +1,6 @@
 import { Schema,models,model} from "mongoose";
 import mongoose from "mongoose";
-const messageSchema = new Schema({ 
+const MessageSchema = new Schema({ 
     senderId:{ 
         type:String,
         required:[true,"senderId missing"]
@@ -16,6 +16,7 @@ const messageSchema = new Schema({
     messageArray: [{type: String, required: true}]
 })
 
-const Message = models.message||model("message", messageSchema);
+
+const Message = models.message||model("message", MessageSchema);
 
 export default Message

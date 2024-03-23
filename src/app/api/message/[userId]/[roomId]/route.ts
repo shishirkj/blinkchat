@@ -6,6 +6,8 @@ import { auth } from "@clerk/nextjs";
 import { ErrorHandler } from "@/lib/utils";
 import User from "@/lib/database/models/user.model";
 
+
+
 export async function PUT(req:NextRequest,context:contextRoom){ 
     try {
         const body = await req.json();

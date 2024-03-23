@@ -1,4 +1,4 @@
-import { Schema} from "mongoose";
+import { Schema,models,model} from "mongoose";
 import mongoose from "mongoose";
 
 const FriendSchema = new Schema({
@@ -12,6 +12,6 @@ const FriendSchema = new Schema({
 
 
 
-const Friend = mongoose.models.friend||mongoose.model("friend", FriendSchema);
+const Friend = models.friend||model("freind", FriendSchema);
 
 export default Friend
