@@ -10,8 +10,8 @@ const FriendSchema = new Schema({
     invitedBy:{ type: Schema.Types.ObjectId,ref:"User",required:true}
 });
 
+mongoose.models={}
 
-
-const Friend = models.friend||model("freind", FriendSchema);
+const Friend = models.friend||model("friends", FriendSchema);
 
 export default Friend

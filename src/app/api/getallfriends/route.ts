@@ -5,7 +5,7 @@ import connectDB from "@/lib/database/mongoose";
 import { auth } from "@clerk/nextjs";
 import Friend from "@/lib/database/models/friend.model";
 import User from "@/lib/database/models/user.model";
-import { ErrorHandler } from "@/lib/utils";
+import { ErrorHandler } from "@/lib/service";
 
 
 

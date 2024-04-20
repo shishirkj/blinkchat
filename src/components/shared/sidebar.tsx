@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Button from './Button';
 
 
 function Sidebar() {
@@ -46,6 +47,11 @@ fetchAllFriends();
           ))}
         </ul>
       </div>
+      <Button>
+        <Link href={"/sendFriendRequest"}>
+          Add friend +
+          </Link>
+      </Button>
     </div>
   );
 };

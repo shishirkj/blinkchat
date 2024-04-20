@@ -3,7 +3,7 @@ import connectDB from "@/lib/database/mongoose";
 import { pusherServer } from "@/lib/database/pusher";
 import Message from "@/lib/database/models/message.model";
 import { auth } from "@clerk/nextjs";
-import { ErrorHandler } from "@/lib/utils";
+import { ErrorHandler } from "@/lib/service";
 import User from "@/lib/database/models/user.model";
 
 

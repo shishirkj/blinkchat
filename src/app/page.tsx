@@ -17,3 +17,19 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
+// import Sidebar from "@/components/shared/sidebar";
+// import { UserButton } from "@clerk/nextjs";
+// import { Card } from "@/components/shared/Card";
+// import Experiment from "@/components/shared/check/Experiment";
+// export default function Home() {
+//   return (
+//     <div>
+//       <UserButton afterSignOutUrl="/home" />
+// <Experiment/>
+//     </div>
+//   );
+// }

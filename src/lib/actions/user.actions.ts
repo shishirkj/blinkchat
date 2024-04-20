@@ -2,7 +2,7 @@ import connectDB from "../database/mongoose";
 import { NextResponse } from "next/server";
 // import { client } from "@/lib/cache";
 import User from '../database/models/user.model';
-import { ErrorHandler } from "@/lib/utils";
+import { ErrorHandler } from "../service";
 import { userParamsType,userParams} from '../database/models/user.model';
 
 

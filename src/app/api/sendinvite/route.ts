@@ -1,5 +1,6 @@
 import { NextRequest,NextResponse } from "next/server";
-import sendEmail, { ErrorHandler } from "@/lib/utils";
+import sendEmail from "@/lib/service";
+import { ErrorHandler } from "@/lib/service";
 import {auth} from "@clerk/nextjs"
 import connectDB from "@/lib/database/mongoose";
 import User from "@/lib/database/models/user.model";
@@ -17,7 +18,7 @@ const {userId} = auth();
      const userid = res._id.toString();
 
     const API_BASE_URL = process.env.MODE==="production"?'https://blinkchat-nu.vercel.app':'http://localhost:3000'
-    const url = `${API_BASE_URL}/api/acceptinvite/${userid}?email=${email}`;
+    const url = `${API_BASE_URL}/acceptFriendRequest/${userid}?email=${email}`;
     const second_url = `${API_BASE_URL}/sign-up`
     const message = `Add friend in Blinkchat:- \n\n ${url} \n \n If first time user plz signUp first ${second_url} an then add friend`;
  
@@ -30,7 +31,7 @@ const {userId} = auth();
           message
         })
 
-      return NextResponse.json({"success":"true","mssg":`mail sent to ${email}`,"respp":`${JSON.stringify(res)}`},{status:200})
+      return NextResponse.json({"success":"true","mssg":`mail sent to ${email}`,"resp":`${JSON.stringify(res)}`},{status:200})
 }
 
 catch(error)

@@ -1,46 +1,90 @@
+import connectDB from "@/lib/database/mongoose";
 import Message from "@/lib/database/models/message.model";
 import User from "@/lib/database/models/user.model";
-import connectDB from "@/lib/database/mongoose";
+import RoomId from "@/lib/database/models/roomId.model";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
-
-//it checks in client-side room/userId.ts that if roomid already exists by checking senderId and receiver Id to THIS API
-//if not create new One
-export async function GET (req:NextRequest,context:onlyRoomType){ 
-await connectDB();
-const {userId} = auth();
-    
-   const {_id}= await User.findOne({clerkId:userId});
-
-   if(!(_id))
-{ 
-    return NextResponse.json({"success":"false","mssg":"didnt find senderId meaning login plz"},{status:500})
-}
-
-   const senderId = _id.toString();
+import { Lock } from "@upstash/lock";
+import { Redis } from "@upstash/redis";
 
 
-if(!(context.params.userId ))
-{ 
-    return NextResponse.json({"success":"false","mssg":"didnt receive receiverId"},{status:500})
-}
+//while testing with two browsers we face race condition i.e two users creating roomId at same time of same sender and receiverId
+async function fixRaceCondition(receiverId:string) {
+  const lock = new Lock({
+    id:nanoid(), // Unique lock ID
+    lease: 5000, // Hold the lock for 5 seconds
+    redis: Redis.fromEnv(),
+  });
 
-    const receiverId = context.params.userId
-    console.log("senderId:",senderId);
-    console.log("receiveriD",receiverId);
+  if (await lock.acquire()) {
+    // Inside critical section
 
-const checkIfRoomIdExistsBetweenTwoUsers= await Message.findOne({senderId:receiverId,receiverId:senderId});
+    console.log(lock);
+    try {
+      await connectDB();
+      const { userId } = auth();
 
-  
-  if(!checkIfRoomIdExistsBetweenTwoUsers )
-  { 
-      const roomId = nanoid();
-      console.log("roomId12345",roomId)
-    return NextResponse.json({"success":"true","mssg":roomId},{status:200})
+      const { _id } = await User.findOne({ clerkId: userId });
+
+      if (!_id) {
+        return NextResponse.json(
+          { success: false, mssg: "User not found. Please log in." },
+          { status: 500 }
+        );
+      }
+
+      const senderId = _id.toString();
+
+      if (!receiverId) {
+        return NextResponse.json(
+          { success: false, mssg: "Receiver ID is missing." },
+          { status: 500 }
+        );
+      }
+      const checkIfRoomIdExistsBetweenTwoUsers = await RoomId.findOne({
+        senderId: receiverId,
+        receiverId: senderId,
+      });
+
+      if (!checkIfRoomIdExistsBetweenTwoUsers) {
+        const roomId = nanoid();
+        console.log("New roomId:", roomId);
+        await RoomId.create({ 
+            senderId,
+            receiverId,
+            roomId
+        })
+        
+        return NextResponse.json(
+          { success: true, mssg: roomId },
+          { status: 200 }
+        );
+      }
+
+      const { roomId } = checkIfRoomIdExistsBetweenTwoUsers;
+      console.log("Existing roomId:", roomId);
+      return NextResponse.json(
+        { success: true, mssg: roomId },
+        { status: 200 }
+      );
+    } catch (error) {
+      console.error("Error:", error);
+      return NextResponse.json(
+        { success: false, mssg: "An error occurred." },
+        { status: 500 }
+      );
+    } finally {
+      await lock.release();
+    }
+  } else {
+    console.log("Lock not acquired. Retrying...");
+    await fixRaceCondition(receiverId); // Retry the operation
   }
+}
 
- const {roomId} =  checkIfRoomIdExistsBetweenTwoUsers
- return NextResponse.json({"success":"true","mssg":roomId},{status:200})
+export async function GET(req: NextRequest, context: onlyRoomType) {
 
+    let receiverId = context.params.userId;
+  return await fixRaceCondition(receiverId);
 }
