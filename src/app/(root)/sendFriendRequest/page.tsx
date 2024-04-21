@@ -83,7 +83,7 @@ async function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         
         </form>
         <Button className="rounded-r-md bg-blue-600 text-white absolute  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
-            <Link href={"/"}> Return To Home Page</Link>
+            <Link href={"/home"}> Return To Home Page</Link>
                 
                 </Button>
       </div>
@@ -126,4 +126,6 @@ const MailIcon:React.FC<MailIconProps>=(props)=> {
 
   )
 }
+
+
 

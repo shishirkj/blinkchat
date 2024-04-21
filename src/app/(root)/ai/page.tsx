@@ -65,7 +65,7 @@ toast.success("Sarcastic mode")
         </div>
         <div className="flex items-center space-x-4">
          
-          <Link className="hover:underline" href={"/"}>
+          <Link className="hover:underline" href={"/home"}>
             Home
           </Link>
         </div>

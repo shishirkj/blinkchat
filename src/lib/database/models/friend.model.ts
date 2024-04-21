@@ -11,7 +11,6 @@ const FriendSchema = new Schema({
 });
 
 
-
 const Friend = models.friend||model("friends", FriendSchema);
 
 export default Friend

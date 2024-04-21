@@ -30,7 +30,7 @@ export default function Page({params,searchParams}:any) {
         <h1 className="text-center text-3xl font-bold text-gray-50">Welcome to BlinkChat!</h1>
         <Button onClick={handleAcceptRequest} className="w-full font-medium">Accept Request</Button>
         <Button className="w-full font-medium">
-          <Link href="/" >  Return To Home</Link>
+          <Link href="/home" >  Return To Home</Link>
         </Button>
       </div>
       <ToastContainer
