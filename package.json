@@ -19,6 +19,7 @@
     "bson": "^6.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "groq-sdk": "^0.3.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.372.0",
     "mongodb": "^6.5.0",

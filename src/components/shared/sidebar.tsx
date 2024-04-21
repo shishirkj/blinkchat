@@ -47,9 +47,14 @@ fetchAllFriends();
           ))}
         </ul>
       </div>
-      <Button>
+      <Button >
         <Link href={"/sendFriendRequest"}>
           Add friend +
+          </Link>
+      </Button>
+      <Button >
+        <Link href={"/ai"}>
+          AI HELP
           </Link>
       </Button>
     </div>
