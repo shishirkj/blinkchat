@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   if (!WEBHOOK_SECRET) {
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local')
   }
- console.log("error 1")
+
   // Get the headers
   const headerPayload = headers();
   const svix_id = headerPayload.get("svix-id");
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       status: 400
     })
   }
-  console.log("error 2")
+ 
   // Get the body
   const payload = await req.json()
   const body = JSON.stringify(payload);
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
   const wh = new Webhook(WEBHOOK_SECRET);
  
   let evt: WebhookEvent
-  console.log("error 3")
+ 
   // Verify the payload with the headers
   try {
     evt = wh.verify(body, {
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       status: 400
     })
   }
-  console.log("error 4")
+  
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
