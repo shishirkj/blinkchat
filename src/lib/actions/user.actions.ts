@@ -8,6 +8,7 @@ import { userParamsType,userParams} from '../database/models/user.model';
 
 export async function createUser(data:userParamsType){ 
     try {
+        console.log("error 5")
         await connectDB();
     console.log(data);
     const parsedSignup = userParams.safeParse(data)
@@ -17,7 +18,7 @@ export async function createUser(data:userParamsType){
     }
 // let unique_id = data.clerkId;
 //     await client.hset(unique_id,data);
-
+console.log("error 6")
 const newUser = await User.create(data)
     return NextResponse.json({"success":"true",newUser},{status:200})
     } catch (error) {
