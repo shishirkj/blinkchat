@@ -30,7 +30,6 @@ if(!email)
 await connectDB();
 
 //res is the data(from User collection) who is going to become friend and we take username and photo 
-console.log("email!!!!",email)
     const res = await User.findOne({email:email})
     // if friend has not completed sign-up process
     if(!res)

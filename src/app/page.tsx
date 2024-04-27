@@ -19,15 +19,17 @@ export default function page() {
           SIGN UP TO BLINKCHAT
         </Link>
         <div className="grid grid-cols-3 gap-4 text-gray-400">
-          <Link className="hover:text-gray-50 transition-colors duration-300 " href="#">
-            Features
-          </Link>
-          <Link className="hover:text-gray-50 transition-colors duration-300 " href="#">
-            Pricing
-          </Link>
-          <Link className="hover:text-gray-50 transition-colors duration-300 " href="#">
-            Contact
-          </Link>
+         
+          <div className="hover:text-gray-50 transition-colors duration-300 " >
+            SUPER-FAST
+          </div>
+          <div className="hover:text-gray-50 transition-colors duration-300 " >
+            AI-HELP
+          </div>
+          <div className="hover:text-gray-50 transition-colors duration-300 " >
+            SECURE-CHAT
+          </div>
+         
         </div>
       </div>
     </div>

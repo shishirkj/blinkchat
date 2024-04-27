@@ -7,9 +7,9 @@ import { ErrorHandler } from "@/lib/service";
 import User from "@/lib/database/models/user.model";
 
 
-
 export async function PUT(req:NextRequest,context:contextRoom){ 
     try {
+     console.log("1")
         const body = await req.json();
         const {text} = body;
         const { userId } = auth();
@@ -37,18 +37,13 @@ export async function PUT(req:NextRequest,context:contextRoom){
 
     
 
-     
      const existingMessage =await Message.findOne({ 
          senderId:senderId,
          receiverId:receiverId,
          roomId:roomId
      })
 
-    //  const existingMessage2 = await Message.findOne({ 
-    //     senderId:receiverId,
-    //     receiverId:senderId,
-    //     roomId:roomId
-    //  }) 
+ 
      
 
      if (!existingMessage ) {
@@ -58,13 +53,14 @@ export async function PUT(req:NextRequest,context:contextRoom){
             roomId:roomId,
              messageArray: [text] 
          });
+    
          return NextResponse.json({"success":"true","mssg":"mssg stored suucessfully"},{status:200})
      }
      
       
      if(existingMessage)
      {
-      await Message.updateOne({
+    const b2 =await Message.updateOne({
           senderId:senderId,
           receiverId:receiverId,
           roomId:roomId,
@@ -74,23 +70,10 @@ export async function PUT(req:NextRequest,context:contextRoom){
              messageArray:text
          }
      })
+
     }
 
-    // if(existingMessage2)
-    // { 
-
-    //     await Message.updateOne({
-    //         senderId:receiverId,
-    //         receiverId:senderId,
-    //         roomId:roomId,
-    //    },
-    //    { 
-    //        $push:{ 
-    //            messageArray:text
-    //        }
-    //    })
-    // }
-     
+   
      return NextResponse.json({"success":"true","mssg":"mssg stored suucessfully"},{status:200})
      
     } catch (error) {

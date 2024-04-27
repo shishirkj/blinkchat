@@ -1,18 +1,21 @@
 "use client"
 import Sidebar from "@/components/shared/sidebar";
-import { UserButton } from "@clerk/nextjs";
+
  import Header from "@/components/shared/Header";
 import MessageContainer from "@/components/shared/messageContainer";
 import MessageInput from "@/components/shared/messageInput";
 import { useEffect,useState } from "react";
 import axios from "axios";
-import { client } from "@/lib/database/cache";
+
 
 
 
  const Room = ({params}:roomProps) => {
+  //userId= clickedFriendId on sidbar
     const {userId}= params
     const [roomId,setRoomId] = useState();
+  
+    
    
 
     async function getRoomId() {
@@ -25,6 +28,7 @@ import { client } from "@/lib/database/cache";
         );
         const value =await data.mssg;
         setRoomId(value);
+        
       
       } catch (error) {
         console.error("Error fetching roomId:", error);
@@ -50,8 +54,10 @@ import { client } from "@/lib/database/cache";
   
   return (
     (<div>
+
+
        <div className="h-screen ">
-      <UserButton afterSignOutUrl="/home" />
+   
       <div className="flex">
 
     <div >
@@ -60,7 +66,7 @@ import { client } from "@/lib/database/cache";
 
  
     <div className="flex-1 flex flex-col">
-        <Header />
+      {userId&&<Header frndId={userId} />}
         <MessageContainer roomId={roomId} />
         <MessageInput roomId={roomId} userId = {userId} />
     </div>

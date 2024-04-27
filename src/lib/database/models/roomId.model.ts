@@ -17,7 +17,6 @@ const roomIdSchema = new Schema({
 });
 
 
-
 const RoomId = models.roomId||model("roomId", roomIdSchema);
 
 export default RoomId

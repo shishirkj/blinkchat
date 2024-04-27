@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       lastName: last_name,
       photo: image_url,
     };
-    console.log("error 5")
+
     
     const res=await createUser(user)
   

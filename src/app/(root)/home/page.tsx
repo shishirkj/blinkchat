@@ -1,12 +1,12 @@
 
 import Sidebar from "@/components/shared/sidebar";
-import { UserButton } from "@clerk/nextjs";
+
 import { Card } from "@/components/shared/Card";
 
 export default function Home() {
   return (
     <div>
-      <UserButton afterSignOutUrl="/" />
+   
     <div className="h-screen flex">
       <div className="flex flex-1">
         <Sidebar />

@@ -31,7 +31,7 @@ export default function Page() {
 
   async function handleSubmit(e:React.MouseEvent<HTMLButtonElement, MouseEvent>){ 
     e.preventDefault();
-      console.log(prompt)
+    
       try {
         const res =  await axios.post(`${API_BASE_URL}/api/ai`,{prompt,censored})
     setPromptResponse(res.data.mssg);

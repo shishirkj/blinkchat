@@ -16,7 +16,7 @@ export default function Page({params,searchParams}:any) {
     
     const {data} =await  axios.get(`${API_BASE_URL}/api/acceptinvite/${userid}?email=${email}`)
    const {invitedByPersonsname} = await data
-   toast.success(`You have Accepted Friend Request From ${invitedByPersonsname}`)
+   toast.success(`You have Accepted Friend Request From ${invitedByPersonsname} please send friendRequest to him/her as well `)
    } catch (error:any) {
     toast.error(error.response.data.mssg)
    }

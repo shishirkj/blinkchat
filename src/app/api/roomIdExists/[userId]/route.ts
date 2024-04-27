@@ -20,7 +20,7 @@ async function fixRaceCondition(receiverId:string) {
   if (await lock.acquire()) {
     // Inside critical section
 
-    console.log(lock);
+  
     try {
       await connectDB();
       const { userId } = auth();
@@ -49,7 +49,7 @@ async function fixRaceCondition(receiverId:string) {
 
       if (!checkIfRoomIdExistsBetweenTwoUsers) {
         const roomId = nanoid();
-        console.log("New roomId:", roomId);
+       
         await RoomId.create({ 
             senderId,
             receiverId,

@@ -1,16 +1,38 @@
+"use client"
+import { friendDetails } from '@/lib/actions/user.actions';
 import React from 'react'
+import { useEffect,useState } from 'react';
+import Image from 'next/image';
+interface HeaderProps {
+  frndId: string; 
+}
+
+export default function Header({frndId}:HeaderProps) {
+
+  const [name,setName] = useState<string|undefined>();
+const [profilePic,setProfilePic] = useState<string|undefined>();
 
 
-export default function Header() {
+  
+
+
+  useEffect(()=>{
+    async function fetchFriendDetail(){
+      const data = await friendDetails(frndId);
+
+      setName(data.name)
+      setProfilePic(data.photo)
+    }
+    //server action for image and name of clicked friend
+fetchFriendDetail();
+  },[frndId])
+
   return (
     <div >
       <div  className='flex flex-col justify-end'>
 <div className="px-5 py-5   bg-gradient-to-r from-purple-500 to-pink-500 flex justify-between items-center  border-b-2">
-  <div className="h-12 w-12 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center">
- 
-    RA
-  </div>
-  <div className="font-semibold text-2xl">Shishir</div>
+{profilePic&&name&&<Image width={40} height={40} src= {profilePic} alt={name} className="rounded-full mr-2" />}
+  {name&&<div className="font-semibold text-2xl">{name}</div>}
 </div>
 </div>
 
