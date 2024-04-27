@@ -46,7 +46,20 @@ async function fixRaceCondition(receiverId:string) {
         senderId: receiverId,
         receiverId: senderId,
       });
-
+      
+//facing issue on reloading 
+      const checkIfRoomIdExists = await RoomId.findOne({ 
+        senderId,
+        receiverId
+      })
+            if(checkIfRoomIdExists)
+{              
+      const {roomId} = checkIfRoomIdExists
+      return NextResponse.json(
+        { success: true, mssg: roomId },
+        { status: 200 }
+      );
+}
       if (!checkIfRoomIdExistsBetweenTwoUsers) {
         const roomId = nanoid();
        

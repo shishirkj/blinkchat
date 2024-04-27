@@ -9,7 +9,7 @@ import User from "@/lib/database/models/user.model";
 
 export async function PUT(req:NextRequest,context:contextRoom){ 
     try {
-     console.log("1")
+  
         const body = await req.json();
         const {text} = body;
         const { userId } = auth();
@@ -24,9 +24,7 @@ export async function PUT(req:NextRequest,context:contextRoom){
 
         const senderId = _id.toString();
 
-
-        
-      
+   
         if(!context.params.roomId ||!context.params.userId )
         { 
          NextResponse.json({"success":"false","mssg":"No RoomId or useriD"},{status:500});
