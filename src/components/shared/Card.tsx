@@ -14,16 +14,9 @@ export const Card = () => {
   <ol start={1} className="list-decimal pl-4" >
     <br/>
   <li className="font-normal text-white">
-  AI Chat: Utilizing advanced artificial intelligence algorithms, this feature provides users with intelligent chatbot capabilities
+  AI Chat: Utilizing advanced artificial intelligence algorithms, this feature provides users with intelligent chatbot capabilities(No Censorship)
   </li>
-  <br />
-  <li className="font-normal text-white">
-  Video Call: Seamlessly connect with others through high-quality video calls, enabling face-to-face communication regardless of physical distance.
-  </li>
-  <br />
-  <li className="font-normal text-white">
-  File Transfer: Simplify the sharing of documents, images, videos, and other files with the File Transfer feature.
-  </li>
+
   <br />
   <li className="font-normal text-white">
   Smooth Real-Time Chat: Experience fluid and uninterrupted communication with Smooth Real-Time Chat. Leveraging cutting-edge technology

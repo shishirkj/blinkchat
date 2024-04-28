@@ -78,7 +78,7 @@ toast.success("Sarcastic mode")
       <main className="flex-1 flex  flex-col items-center justify-center px-6 py-12">
         <div className="w-full max-w-2xl space-y-6">
         <Button onClick={handleSarcasticMode} className="mx-2">
-             Sarcastic  Mode
+             Uncensored  Mode
             </Button>
             <Button onClick={handleCensorMode} className="mx-2">
               Censored Mode

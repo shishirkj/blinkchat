@@ -41,10 +41,10 @@ async function handleSubmit(e:React.FormEvent<HTMLFormElement>){
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100 dark:text-gray-100">
-            Sign up for Blink Chat
+           Connect with  Blink Chat
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400 dark:text-gray-400">
-            Get the latest updates and features by signing up for our newsletter.
+           Encrypted and Fast Chat Application
           </p>
         </div>
         <form onSubmit={handleSubmit}>
