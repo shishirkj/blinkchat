@@ -29,8 +29,8 @@ export default function Page() {
     setPrompt(e.target.value)
   }
 
-  async function handleSubmit(e:React.MouseEvent<HTMLButtonElement, MouseEvent>){ 
-    e.preventDefault();
+  async function handleSubmit(e?: React.MouseEvent<HTMLButtonElement, MouseEvent>){ 
+
     
       try {
         const res =  await axios.post(`${API_BASE_URL}/api/ai`,{prompt,censored})
@@ -54,6 +54,11 @@ toast.success("Sarcastic mode")
     toast.success("censor mode");
   }
 
+  function handleEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      handleSubmit(); // Call handleSubmit function and pass the event object
+    }
+  }
 
   return (
     
@@ -61,7 +66,7 @@ toast.success("Sarcastic mode")
       <header className="bg-gray-900 py-4 px-6 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <BotIcon className="h-8 w-8" />
-          <h1 className="text-xl font-bold">BlinkChat</h1>
+          <Link href={"/home"} className="text-xl font-bold">BlinkChat</Link>
         </div>
         <div className="flex items-center space-x-4">
          
@@ -79,7 +84,7 @@ toast.success("Sarcastic mode")
               Censored Mode
             </Button>
           <div className="flex items-center bg-gray-900 rounded-md px-4 py-2">
-            <Input  value={prompt} onChange={handleChange}
+            <Input onKeyDown={handleEnter} value={prompt} onChange={handleChange}
               className="bg-transparent flex-1 focus:outline-none"
               placeholder="Enter your prompt..."
               type="text"
@@ -109,7 +114,7 @@ toast.success("Sarcastic mode")
               </div>
 
             </div>}
-            {promptResponse&& <div className="flex items-start space-x-4">
+            {promptResponse&& <div className="flex items-start space-x-4 overflow-scroll overflow-x-hidden h-[19em]">
               <Avatar>
                 <AvatarImage alt="ChatGPT" src="/placeholder-avatar.jpg" />
                 <AvatarFallback>GPT</AvatarFallback>
@@ -187,42 +192,3 @@ const SendIcon:React.FC<BotIconProps>=(props)=> {
   )
 }
 
-// === styles.css ===
-
-// body {
-//   font-family: var(--font-rubik), sans-serif;
-// }
-
-// h1, h2, h3, h4, h5, h6 {
-//   font-family: var(--font-comfortaa), sans-serif;
-// }
-
-// === layout.jsx ===
-
-// // This is the root layout component for your Next.js app.
-// // Learn more: https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required
-
-// import { Comfortaa } from 'next/font/google'
-// import { Rubik } from 'next/font/google'
-// import './styles.css'
-
-// const comfortaa = Comfortaa({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-comfortaa',
-// })
-// const rubik = Rubik({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-rubik',
-// })
-
-// export default function Layout({ children }) {
-//   return (
-//     <html lang="en">
-//       <body className={comfortaa.variable + rubik.variable}>
-//         {children}
-//       </body>
-//     </html>
-//   )
-// }

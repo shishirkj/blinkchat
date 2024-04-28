@@ -60,6 +60,8 @@ async function fixRaceCondition(receiverId:string) {
         { status: 200 }
       );
 }
+
+
       if (!checkIfRoomIdExistsBetweenTwoUsers) {
         const roomId = nanoid();
        

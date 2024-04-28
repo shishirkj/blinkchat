@@ -12,6 +12,7 @@ import axios from "axios";
 
  const Room = ({params}:roomProps) => {
   //userId= clickedFriendId on sidbar
+  //userId needed for roomIdExists api
     const {userId}= params
     const [roomId,setRoomId] = useState();
   
@@ -68,7 +69,7 @@ import axios from "axios";
     <div className="flex-1 flex flex-col">
       {userId&&<Header frndId={userId} />}
         <MessageContainer roomId={roomId} />
-        <MessageInput roomId={roomId} userId = {userId} />
+        <MessageInput roomId={roomId} />
     </div>
 </div>
 

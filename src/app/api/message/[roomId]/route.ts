@@ -4,7 +4,8 @@ import { pusherServer } from "@/lib/database/pusher";
 import Message from "@/lib/database/models/message.model";
 import { auth } from "@clerk/nextjs";
 import { ErrorHandler } from "@/lib/service";
-import User from "@/lib/database/models/user.model";
+import { client } from "@/lib/database/cache";
+
 
 
 export async function PUT(req:NextRequest,context:contextRoom){ 
@@ -12,42 +13,29 @@ export async function PUT(req:NextRequest,context:contextRoom){
   
         const body = await req.json();
         const {text} = body;
-        const { userId } = auth();
-
-        if(!userId)
-        { 
-            NextResponse.json({"success":"false","mssg":"No Pease Login"},{status:500});
-        }
+      
         await connectDB();
 
-        const {_id}=await User.findOne({clerkId:userId});
-
-        const senderId = _id.toString();
-
-   
-        if(!context.params.roomId ||!context.params.userId )
+        if(!context.params.roomId )
         { 
-         NextResponse.json({"success":"false","mssg":"No RoomId or useriD"},{status:500});
+         NextResponse.json({"success":"false","mssg":"No RoomId "},{status:500});
         }
      const roomId = context.params.roomId;
-     const receiverId = context.params.userId
-    const s= await pusherServer.trigger(roomId,'incoming-message',text);
-
-    
-
-     const existingMessage =await Message.findOne({ 
-         senderId:senderId,
-         receiverId:receiverId,
+   await pusherServer.trigger(roomId,'incoming-message',text);
+     const existingRoomId =await Message.findOne({ 
          roomId:roomId
      })
 
- 
-     
 
-     if (!existingMessage ) {
+     const isRoomIdInCache= await client.lrange(roomId,0,-1);
+     //for caching in upstsah storing texts here as well along with mongo below
+     if(isRoomIdInCache.length!=0)
+        { 
+            await client.rpush(roomId,text)
+        }
+
+     if (!existingRoomId ) {
          await Message.create({
-            senderId:senderId,
-            receiverId:receiverId,
             roomId:roomId,
              messageArray: [text] 
          });
@@ -56,11 +44,9 @@ export async function PUT(req:NextRequest,context:contextRoom){
      }
      
       
-     if(existingMessage)
+     if(existingRoomId)
      {
     const b2 =await Message.updateOne({
-          senderId:senderId,
-          receiverId:receiverId,
           roomId:roomId,
      },
      { 
