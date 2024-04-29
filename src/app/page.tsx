@@ -21,13 +21,13 @@ export default function page() {
         <div className="grid grid-cols-3 gap-4 text-gray-400">
          
           <div className="hover:text-gray-50 transition-colors duration-300 " >
-            SUPER-FAST
+            FAST
           </div>
           <div className="hover:text-gray-50 transition-colors duration-300 " >
-            AI-HELP
+            AI HELP
           </div>
           <div className="hover:text-gray-50 transition-colors duration-300 " >
-            SECURE-CHAT
+            SECURE
           </div>
          
         </div>
